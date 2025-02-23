@@ -25,4 +25,19 @@ public class CustomerController {
     public List<Customer> showCustomers(){
         return service.getAll();
     }
+
+    @PutMapping("/update-customer")
+    public void upateCustomer(@RequestBody Customer customer){
+        service.update(customer);
+    }
+
+    @DeleteMapping("/delete-customer/{id}")
+    public void delete(@PathVariable Integer id){
+         service.deleteCustomer(id);
+    }
+
+    @GetMapping("/search-customer/{id}")
+    public Customer search(@PathVariable Integer id){
+        return service.searchCustomer(id);
+    }
 }

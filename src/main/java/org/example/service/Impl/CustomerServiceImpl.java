@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,5 +32,23 @@ public class CustomerServiceImpl implements CustomerService {
             customerList.add(mapper.map(customerEntity, Customer.class))
         );
         return customerList;
+    }
+
+    @Override
+    public void update(Customer customer) {
+        customerDao.save(mapper.map(customer, CustomerEntity.class));
+    }
+
+    @Override
+    public void deleteCustomer(Integer id) {
+        customerDao.deleteById(id);
+    }
+
+    @Override
+    public Customer searchCustomer(Integer id) {
+        Optional<CustomerEntity> customerEntity = customerDao.findById(id);
+
+        return mapper.map(customerEntity, Customer.class);
+
     }
 }
